@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			    *{
+						margin: 0;
+						padding: 0;
+					}
+					#box{
+						
+						width:500px;
+						height:200px;
+			      margin:100px auto;
+		}
+	           td{
+				height: 50px;
+				text-align: center;
+				}
+				.dele{
+					cursor: pointer;
+					color: red;
+				}
+		</style>
+
+	</head>
+	<script src="js/cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		onload = function(){
+			var glass=getCookie("水杯");
+			var pc=getCookie("电脑");
+			var phone=getCookie("手机"); 
+		    var arr=[glass,pc,phone];
+			//alert(arr)
+			for(var i=0;i<arr.length;i++){
+				var index=i+1
+			var tab = document.getElementById("table_data");//获取表格
+			var tr1 = tab.children[0].children[1];//获取表格的第二行
+			//alert(tr1)
+			let trn = document.createElement("tr");//新增元素tr
+			let str = JSON.parse(arr[i]);//将字符串转化为对象
+			console.log(str);
+			trn.innerHTML = tr1.innerHTML;//将第二行里面的所有节点赋值给新增的
+			//alert(trn.innerText);
+			    trn.children[0].innerText = index;
+			    trn.children[1].innerText = str.name;
+				trn.children[2].innerText = str.price;
+				trn.children[3].innerText = str.count;
+				tab.children[0].appendChild(trn);
+			}
+			//删除cookie
+			_dele=document.getElementsByClassName("dele")
+			for(var i=0;i<_dele.length;i++){
+				_dele[i].addEventListener("click",function(){
+					this.parentNode.remove();
+					// 删除cookie
+					var name = this.parentNode.children[1].innerText;
+					//alert(name);
+					removeCookie(name);
+				})
+			}
+		}
+	</script>
+	<body>
+		<div id="box">
+			  <table id="table_data" width="500"  height="50" align="center"  border="1" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>序号</td>
+				<td>商品名称</td>
+				<td>商品单价</td>
+				<td>数量</td>
+				<td>操作</td>
+			</tr>
+			<tr style="display:none">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="dele">删除</td>
+			</tr>
+			
+		
+						
+	       </table>
+		</div>
+	
+	</body>
+</html>

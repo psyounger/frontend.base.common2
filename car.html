@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			    *{
+						margin: 0;
+						padding: 0;
+					}
+					#box{
+						
+						width:500px;
+						height:500px;
+			      margin:100px auto;
+		}
+	    td{
+				text-align: center;
+				}
+				.sub,.plus,.goumai{
+					cursor:pointer;
+					}
+					.sub{
+						background:skyblue;
+					}
+					.plus{
+						background:yellow;
+					}
+					.goumai{
+						color: red;
+					}
+			
+		</style>
+	</head>
+	<script src="js/cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		window.onload = function(){
+			var _buy=document.getElementsByClassName("goumai")//获取所有的购买td
+			var _plus=document.getElementsByClassName("plus")//获取所有的加号
+			var _sub=document.getElementsByClassName("sub")//获取所有的减号
+			//给购买td添加单击事件
+			for (var i=0;i<_buy.length;i++) {
+				_buy[i].addEventListener("click",function(){
+					var _name=this.parentNode.children[0].innerText;
+					//alert(_name)
+					var _price=this.parentNode.children[1].innerText;
+					//alert(_price)
+					var _count=this.parentNode.children[2].innerText
+					
+					//将商品名称和价格定义在一个对象里面
+					var information={
+						name:_name,
+						price:_price,
+						count:_count
+					}
+					var str=JSON.stringify(information);//转化为字符串
+					//alert(str);
+					alert(_name+"已添加至购物车");
+					setCookie(_name,str,7);
+				})
+			}	
+			//给所有的加号添加单击事件 面向过程
+	
+// 		    var a=0;var b=0;var c=0;
+// 				_plus[0].addEventListener("click",function(){	
+// 					
+// 					this.parentNode.children[2].innerText=++a;
+// 					//alert(this.parentNode.children[2].innerText)
+// 				})
+// 				_plus[1].addEventListener("click",function(){	 
+// 					
+// 					this.parentNode.children[2].innerText=++b;
+// 					//alert(this.parentNode.children[2].innerText)
+// 				})
+// 		   _plus[2].addEventListener("click",function(){
+// 				 
+// 					this.parentNode.children[2].innerText=++c;
+// 					//alert(this.parentNode.children[2].innerText)
+// 				})
+				//封装点击加号加一函数 面向对象
+				function Plus(Obj){
+					
+						Obj.addEventListener("click",function(){	
+							
+							this.parentNode.children[2].innerText=-(-this.parentNode.children[2].innerText)+1;			
+				})
+				}
+				Plus(_plus[0]);
+				Plus(_plus[1]);
+				Plus(_plus[2]);
+				//封装点击加号减一函数 面向对象
+				function Sub(Obj){
+					
+						Obj.addEventListener("click",function(){	
+							
+							this.parentNode.children[2].innerText=Math.max(0,(-(-this.parentNode.children[2].innerText)-1));		
+				})
+				}
+		    Sub(_sub[0])
+				Sub(_sub[1])
+			  Sub(_sub[2])
+			
+		}
+				
+				
+	</script>
+	<body>
+		<div id="box">
+			  <table width="500"  height="300" align="center"  border="1" cellspacing="0" cellpadding="0">
+						<tr >
+							<td>商品</td>
+							<td>价格(元)</td>
+							<td>数量</td>
+							<td colspan="3">操作</td>
+							
+							
+						</tr>
+						<tr>
+							<td >水杯</td>
+							<td>29</td>
+							<td>0</td>
+							<td class="plus">+</td>
+							<td class="sub">-</td>
+							<td class="goumai">购买</td>
+						</tr>
+						<tr>
+							<td>电脑</td>
+							<td>4999</td>
+							<td>0</td>
+							<td class="plus">+</td>
+							<td class="sub">-</td>
+							<td class="goumai">购买</td>
+						</tr>
+						<tr>
+							<td>手机</td>
+							<td>1999</td>
+							<td>0</td>
+							<td class="plus">+</td>
+							<td class="sub">-</td>
+							<td class="goumai">购买</td>
+						</tr>
+						<tr >
+						<td colspan="6"><a href="totalMoney.html">查看购物车</a></td>
+						
+						
+						
+						
+						</tr>
+						
+	       </table>
+		</div>
+	
+	</body>
+</html>
